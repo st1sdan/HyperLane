@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>История мира | HyperLane</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Timeline стили */
+        .timeline {
+            position: relative;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: linear-gradient(180deg, var(--purple) 0%, var(--cyan) 50%, var(--magenta) 100%);
+            box-shadow: 0 0 15px rgba(139, 92, 246, 0.6);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 80px;
+            display: flex;
+            align-items: center;
+        }
+
+        .timeline-item:nth-child(odd) {
+            flex-direction: row;
+        }
+
+        .timeline-item:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        .timeline-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .timeline-marker {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            top: 20px;
+            width: 24px;
+            height: 24px;
+            background: var(--black);
+            border: 3px solid var(--purple);
+            box-shadow: 0 0 0 3px var(--black), 0 0 15px var(--purple);
+            z-index: 10;
+            transition: all 0.3s ease;
+            clip-path: polygon(20% 0%, 100% 0%, 80% 100%, 0% 100%);
+        }
+
+        .timeline-item:hover .timeline-marker {
+            border-color: var(--cyan);
+            box-shadow: 0 0 0 3px var(--black), 0 0 20px var(--cyan);
+            transform: translateX(-50%) scale(1.2);
+        }
+
+        .timeline-content {
+            background: var(--black);
+            border: 3px solid var(--white);
+            padding: 40px;
+            width: 45%;
+            position: relative;
+            transition: all 0.3s ease;
+            clip-path: polygon(0 0, 97% 0, 100% 10%, 100% 100%, 3% 100%, 0 90%);
+        }
+
+        .timeline-content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--purple), var(--red));
+            transform: skewX(-45deg);
+            transform-origin: left;
+        }
+
+        .timeline-item:nth-child(odd) .timeline-content {
+            margin-right: auto;
+        }
+
+        .timeline-item:nth-child(even) .timeline-content {
+            margin-left: auto;
+        }
+
+        .timeline-content:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 0 0 4px var(--purple), 0 0 30px rgba(139, 92, 246, 0.4);
+        }
+
+        .timeline-content h3 {
+            color: var(--white);
+            font-size: 32px;
+            font-weight: 900;
+            margin-bottom: 10px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            position: relative;
+            display: inline-block;
+        }
+
+        .timeline-content h3.glitch-card::before,
+        .timeline-content h3.glitch-card::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            opacity: 0.8;
+        }
+
+        .timeline-content h3.glitch-card::before {
+            color: var(--purple);
+            animation: glitchCard1 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) both infinite;
+            z-index: -1;
+        }
+
+        .timeline-content h3.glitch-card::after {
+            color: var(--red);
+            animation: glitchCard2 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) reverse both infinite;
+            z-index: -2;
+        }
+
+        @keyframes glitchCard1 {
+
+            0%,
+            100% {
+                transform: translate(0);
+                clip-path: inset(0);
+            }
+
+            20% {
+                transform: translate(-1px, 1px);
+                clip-path: inset(10% 0 85% 0);
+            }
+
+            40% {
+                transform: translate(-1px, -1px);
+                clip-path: inset(70% 0 15% 0);
+            }
+
+            60% {
+                transform: translate(1px, 1px);
+                clip-path: inset(40% 0 50% 0);
+            }
+
+            80% {
+                transform: translate(1px, -1px);
+                clip-path: inset(80% 0 10% 0);
+            }
+        }
+
+        @keyframes glitchCard2 {
+
+            0%,
+            100% {
+                transform: translate(0);
+                clip-path: inset(0);
+            }
+
+            20% {
+                transform: translate(1px, -1px);
+                clip-path: inset(5% 0 90% 0);
+            }
+
+            40% {
+                transform: translate(1px, 1px);
+                clip-path: inset(60% 0 30% 0);
+            }
+
+            60% {
+                transform: translate(-1px, -1px);
+                clip-path: inset(20% 0 75% 0);
+            }
+
+            80% {
+                transform: translate(-1px, 1px);
+                clip-path: inset(85% 0 5% 0);
+            }
+        }
+
+        .timeline-content .role {
+            color: var(--purple-light);
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+        }
+
+        .timeline-content p {
+            color: var(--white);
+            line-height: 1.8;
+            margin: 0;
+            font-size: 16px;
+        }
+
+        /* Анимация появления элементов */
+        .timeline-item {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        .timeline-item:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+
+        .timeline-item:nth-child(2) {
+            animation-delay: 0.3s;
+        }
+
+        .timeline-item:nth-child(3) {
+            animation-delay: 0.5s;
+        }
+
+        .timeline-item:nth-child(4) {
+            animation-delay: 0.7s;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 968px) {
+            .timeline::before {
+                left: 30px;
+                transform: none;
+            }
+
+            .timeline-marker {
+                left: 16px;
+                transform: none;
+            }
+
+            .timeline-item {
+                flex-direction: row !important;
+                padding-left: 80px;
+            }
+
+            .timeline-item:nth-child(even) {
+                flex-direction: row !important;
+            }
+
+            .timeline-content {
+                width: 100%;
+                margin: 0 !important;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .timeline-content {
+                padding: 30px 20px;
+            }
+
+            .timeline-content h3 {
+                font-size: 24px;
+            }
+
+            .timeline-content p {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Навигация -->
+    <nav>
+        <a href="index.html" class="logo"><span class="hyper">HYPER</span><strong class="lane">LANE</strong></a>
+        <div>
+            <a href="index.html">Главная</a>
+            <a href="characters.html">Персонажи</a>
+            <a href="history.html">История</a>
+        </div>
+    </nav>
+
+    <!-- Hero секция -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1><span class="hyper">ИСТОРИЯ</span> <span class="lane">МИРА</span></h1>
+            <p class="tagline">Город • Система • Скорость</p>
+        </div>
+    </section>
+
+    <!-- Секция с описанием мира -->
+    <section class="info-section">
+        <div class="info-grid">
+            <div class="info-card">
+                <h3 class="glitch-card" data-text="АРХИТЕКТУРА">АРХИТЕКТУРА</h3>
+                <p>Город‑мегасеть из модульных районов, соединённых узлами связи и транспортными коридорами, где
+                    движение — единственная валюта свободы.</p>
+                <p>Инфраструктура поддерживается автоматическими протоколами: они калибруют маршруты, перезапускают
+                    сегменты и отбрасывают всё, что выбивается из нормы.</p>
+            </div>
+
+            <div class="info-card">
+                <h3 class="glitch-card" data-text="ЭСТЕТИКА">ЭСТЕТИКА</h3>
+                <p>Неон, скорость и минимализм форм: чистые геометрии, резкие контрасты и пространство, которое требует
+                    точности и решительности.</p>
+                <p>История говорит языком трасс и высоты — подробности прошлого остаются за кадром, чтобы не нарушать
+                    ощущение открытия.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Секция временной шкалы -->
+    <section class="team-section">
+        <div class="team-container">
+            <h2 class="section-title glitch-title">ВРЕМЕННАЯ ШКАЛА</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <h3 class="glitch-card" data-text="ФАЗА 01">ФАЗА 01</h3>
+                        <div class="role">Строительство сети</div>
+                        <p>Город строит сеть маршрутов, чтобы ускорить перемещение и распределение ресурсов. Архитектура
+                            становится основой для новой формы движения.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <h3 class="glitch-card" data-text="ФАЗА 02">ФАЗА 02</h3>
+                        <div class="role">Автоматизация</div>
+                        <p>Автоматические протоколы периодически «очищают» зоны и ставят процессы на паузу для
+                            стабилизации. Система начинает жить собственной жизнью.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <h3 class="glitch-card" data-text="ФАЗА 03">ФАЗА 03</h3>
+                        <div class="role">Культура движения</div>
+                        <p>Сообщество бегунов превращает вертикальные структуры в нелинейные пути — скорость становится
+                            культурой. Рождается новый язык городского пространства.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <h3 class="glitch-card" data-text="ФАЗА 04">ФАЗА 04</h3>
+                        <div class="role">Периферия</div>
+                        <p>На периферии слышны разрозненные маяки: кто‑то ищет способ договориться с системой движения
+                            на своих условиях. Границы системы начинают трещать.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Футер -->
+    <footer>
+        <p>&copy; 2025 HyperLane. Все права защищены. Создано на движке Godot.</p>
+    </footer>
+</body>
+
+</html>

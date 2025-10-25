@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Персонажи | HyperLane</title>
+	<link rel="stylesheet" href="styles.css">
+	<style>
+		/* Переменные */
+		:root {
+			--black: #0a0a0a;
+			--white: #f8f8f8;
+			--purple: #8b5cf6;
+			--purple-dark: #6d28d9;
+			--purple-light: #a78bfa;
+			--red: #ef4444;
+			--cyan: #00fffc;
+			--magenta: #fc00ff;
+		}
+
+		/* Навигация персонажей с табами */
+		.character-nav {
+			background: var(--black);
+			padding: 40px 5% 20px;
+			position: sticky;
+			top: 70px;
+			z-index: 100;
+			border-bottom: 2px solid var(--white);
+		}
+
+		.character-nav-container {
+			max-width: 1200px;
+			margin: 0 auto;
+			display: flex;
+			gap: 8px;
+			flex-wrap: wrap;
+			justify-content: center;
+		}
+
+		.char-tab-btn {
+			padding: 12px 24px;
+			background: transparent;
+			border: 2px solid var(--white);
+			color: var(--white);
+			cursor: pointer;
+			font-size: 13px;
+			font-weight: 600;
+			letter-spacing: 1px;
+			transition: all 0.3s ease;
+			text-transform: uppercase;
+			font-family: inherit;
+		}
+
+		.char-tab-btn:hover {
+			background: var(--purple);
+			border-color: var(--purple);
+			color: var(--black);
+		}
+
+		.char-tab-btn.active {
+			background: var(--white);
+			color: var(--black);
+			border-color: var(--white);
+		}
+
+		/* Контейнер для табов */
+		.character-tabs-content {
+			max-width: 1100px;
+			margin: 0 auto;
+			padding: 60px 20px;
+		}
+
+		.character-tab-panel {
+			display: none;
+			animation: fadeIn 0.4s ease;
+		}
+
+		.character-tab-panel.active {
+			display: block;
+		}
+
+		@keyframes fadeIn {
+			from {
+				opacity: 0;
+				transform: translateY(10px);
+			}
+
+			to {
+				opacity: 1;
+				transform: translateY(0);
+			}
+		}
+
+		.character-card {
+			background: var(--black);
+			border: 3px solid var(--white);
+			padding: 48px;
+			position: relative;
+			clip-path: polygon(0 0, 97% 0, 100% 10%, 100% 100%, 3% 100%, 0 90%);
+			transition: all 0.3s;
+			margin-bottom: 40px;
+		}
+
+		.character-card::before {
+			content: '';
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 4px;
+			background: linear-gradient(90deg, var(--purple), var(--red));
+			transform: skewX(-45deg);
+			transform-origin: left;
+		}
+
+		.character-name {
+			font-size: 48px;
+			margin-bottom: 8px;
+			letter-spacing: 2px;
+			color: var(--white);
+			text-transform: uppercase;
+			font-weight: 900;
+			position: relative;
+			display: inline-block;
+		}
+
+		.character-name.glitch-title {
+			text-shadow:
+				0.03em 0 0 rgba(0, 255, 252, 0.5),
+				-0.03em -0.02em 0 rgba(252, 0, 255, 0.5),
+				0.01em 0.02em 0 rgba(255, 252, 0, 0.5);
+			animation: glitchTitle 0.8s infinite;
+		}
+
+		@keyframes glitchTitle {
+
+			0%,
+			100% {
+				text-shadow:
+					0.03em 0 0 rgba(0, 255, 252, 0.5),
+					-0.03em -0.02em 0 rgba(252, 0, 255, 0.5),
+					0.01em 0.02em 0 rgba(255, 252, 0, 0.5);
+			}
+
+			25% {
+				text-shadow:
+					-0.03em -0.02em 0 rgba(0, 255, 252, 0.5),
+					0.02em 0.03em 0 rgba(252, 0, 255, 0.5),
+					-0.03em -0.03em 0 rgba(255, 252, 0, 0.5);
+			}
+
+			50% {
+				text-shadow:
+					0.03em 0.03em 0 rgba(0, 255, 252, 0.5),
+					0.02em 0 0 rgba(252, 0, 255, 0.5),
+					0 -0.02em 0 rgba(255, 252, 0, 0.5);
+			}
+
+			75% {
+				text-shadow:
+					-0.03em 0 0 rgba(0, 255, 252, 0.5),
+					-0.02em -0.02em 0 rgba(252, 0, 255, 0.5),
+					-0.02em -0.02em 0 rgba(255, 252, 0, 0.5);
+			}
+		}
+
+		.character-role {
+			font-size: 14px;
+			color: var(--purple-light);
+			text-transform: uppercase;
+			letter-spacing: 3px;
+			margin-bottom: 30px;
+			font-weight: 600;
+		}
+
+		.character-content {
+			line-height: 1.9;
+		}
+
+		.character-content p {
+			margin-bottom: 24px;
+			color: var(--white);
+			font-size: 16px;
+		}
+
+		.character-content h3 {
+			font-size: 24px;
+			margin-top: 40px;
+			margin-bottom: 16px;
+			color: var(--purple-light);
+			letter-spacing: 1px;
+			text-transform: uppercase;
+			font-weight: 700;
+			position: relative;
+			display: inline-block;
+		}
+
+		.character-content h3.glitch-card::before,
+		.character-content h3.glitch-card::after {
+			content: attr(data-text);
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			opacity: 0.8;
+		}
+
+		.character-content h3.glitch-card::before {
+			color: var(--purple);
+			animation: glitchCard1 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) both infinite;
+			z-index: -1;
+		}
+
+		.character-content h3.glitch-card::after {
+			color: var(--red);
+			animation: glitchCard2 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) reverse both infinite;
+			z-index: -2;
+		}
+
+		@keyframes glitchCard1 {
+
+			0%,
+			100% {
+				transform: translate(0);
+				clip-path: inset(0);
+			}
+
+			20% {
+				transform: translate(-1px, 1px);
+				clip-path: inset(10% 0 85% 0);
+			}
+
+			40% {
+				transform: translate(-1px, -1px);
+				clip-path: inset(70% 0 15% 0);
+			}
+
+			60% {
+				transform: translate(1px, 1px);
+				clip-path: inset(40% 0 50% 0);
+			}
+
+			80% {
+				transform: translate(1px, -1px);
+				clip-path: inset(80% 0 10% 0);
+			}
+		}
+
+		@keyframes glitchCard2 {
+
+			0%,
+			100% {
+				transform: translate(0);
+				clip-path: inset(0);
+			}
+
+			20% {
+				transform: translate(1px, -1px);
+				clip-path: inset(5% 0 90% 0);
+			}
+
+			40% {
+				transform: translate(1px, 1px);
+				clip-path: inset(60% 0 30% 0);
+			}
+
+			60% {
+				transform: translate(-1px, -1px);
+				clip-path: inset(20% 0 75% 0);
+			}
+
+			80% {
+				transform: translate(-1px, 1px);
+				clip-path: inset(85% 0 5% 0);
+			}
+		}
+
+		.skills-list {
+			list-style: none;
+			padding: 0;
+			margin: 0 0 24px 0;
+		}
+
+		.skills-list li {
+			color: var(--white);
+			margin-bottom: 12px;
+			padding-left: 20px;
+			position: relative;
+			line-height: 1.7;
+			font-size: 15px;
+		}
+
+		.skills-list li::before {
+			content: '▸';
+			position: absolute;
+			left: 0;
+			color: var(--purple-light);
+			font-weight: 900;
+		}
+
+		.character-content strong {
+			color: var(--white);
+			font-weight: 600;
+		}
+
+		.character-icon {
+			width: 120px;
+			height: 120px;
+			background: linear-gradient(135deg, var(--purple), var(--red));
+			border-radius: 50%;
+			margin: 0 auto 30px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			font-size: 40px;
+			color: var(--white);
+			border: 3px solid var(--white);
+			box-shadow: 0 0 20px rgba(139, 92, 246, 0.5);
+		}
+
+		/* Адаптивность */
+		@media (max-width: 768px) {
+			.character-nav {
+				top: 60px;
+				padding: 30px 5% 20px;
+			}
+
+			.char-tab-btn {
+				font-size: 11px;
+				padding: 10px 16px;
+			}
+
+			.character-name {
+				font-size: 36px;
+			}
+
+			.character-tabs-content {
+				padding: 40px 20px;
+			}
+
+			.character-card {
+				padding: 30px 20px;
+			}
+		}
+	</style>
+</head>
+
+<body>
+	<!-- Навигация -->
+	<nav>
+		<a href="index.html" class="logo"><span class="hyper">HYPER</span><strong class="lane">LANE</strong></a>
+		<div>
+			<a href="index.html">Главная</a>
+			<a href="characters.html">Персонажи</a>
+			<a href="history.html">История</a>
+		</div>
+	</nav>
+
+	<!-- Hero секция -->
+	<section class="hero">
+		<div class="hero-content">
+			<h1><span class="hyper">ПЕРСОНАЖИ</span></h1>
+			<p class="tagline">Роли • Навыки • Мотивы</p>
+		</div>
+	</section>
+
+	<!-- Навигация персонажей с табами -->
+	<section class="character-nav">
+		<div class="character-nav-container">
+			<button class="char-tab-btn active" data-tab="runner">БЕГУН</button>
+			<button class="char-tab-btn" data-tab="architect">АРХИТЕКТОР УЗЛОВ</button>
+			<button class="char-tab-btn" data-tab="courier">КУРЬЕР СИГНАЛОВ</button>
+			<button class="char-tab-btn" data-tab="patchmaker">ПАТЧМЕЙКЕР</button>
+			<button class="char-tab-btn" data-tab="surveillance">СИСТЕМА НАБЛЮДЕНИЯ</button>
+		</div>
+	</section>
+
+	<!-- Секция с персонажами -->
+	<section class="team-section">
+		<div class="team-container">
+			<div class="character-tabs-content">
+				<article id="runner" class="character-tab-panel active">
+					<div class="character-card">
+						<div class="character-icon">⚡</div>
+						<h2 class="character-name glitch-title">БЕГУН</h2>
+						<div class="character-role">оператор трасс</div>
+						<div class="character-content">
+							<p>
+								Специалист по вертикальному движению, превращающий геометрию города в маршрут высокой
+								скорости. Каждое касание поверхности рассчитано, каждый прыжок — это математика импульса
+								и траектории.
+							</p>
+							<p>
+								Для Бегуна город — это не препятствие, а вертикальная игровая площадка. Законы
+								гравитации становятся инструментом, а не ограничением.
+							</p>
+							<p>
+								В момент движения все внешнее исчезает — остается только поток, чистое состояние
+								концентрации и свободы.
+							</p>
+							<p>
+								Мотивация: Свобода передвижения и чистый поток — состояние, где тело и пространство
+								становятся единым механизмом без сопротивления.
+							</p>
+						</div>
+					</div>
+				</article>
+
+				<article id="architect" class="character-tab-panel">
+					<div class="character-card">
+						<div class="character-icon">🔧</div>
+						<h2 class="character-name glitch-title">АРХИТЕКТОР УЗЛОВ</h2>
+						<div class="character-role">инфраструктура</div>
+						<div class="character-content">
+							<p>
+								Инженер, проектирующий узлы синхронизации и протоколы калибровки для стабильной работы
+								сети. Пока другие движутся по трассам, Архитектор создает саму инфраструктуру движения.
+							</p>
+							<p>
+								Каждый узел — это точка равновесия в хаотичной системе города. Архитектор видит не
+								здания, а потоки данных, не улицы, а топологию связей.
+							</p>
+							<p>
+								Их работа незаметна, но критична: без правильной калибровки весь темп рассыпается.
+							</p>
+							<p>
+								Мотивация: Предсказуемость и безопасность движения — создание стабильной среды, где
+								каждый элемент работает как запланировано.
+							</p>
+						</div>
+					</div>
+				</article>
+
+				<article id="courier" class="character-tab-panel">
+					<div class="character-card">
+						<div class="character-icon">📡</div>
+						<h2 class="character-name glitch-title">КУРЬЕР СИГНАЛОВ</h2>
+						<div class="character-role">связь и маршруты</div>
+						<div class="character-content">
+							<p>
+								Оператор на периферии сети: собирает, шифрует и доставляет телеметрию между районами.
+								Курьер — это живая связь между изолированными участками городской системы.
+							</p>
+							<p>
+								Работа на краю сети требует особых навыков: здесь нет готовых маршрутов, нет резервных
+								каналов, нет второго шанса.
+							</p>
+							<p>
+								Каждая доставка — это импровизация в условиях неполной информации. Курьер не проектирует
+								систему, а адаптируется к её постоянно меняющейся природе.
+							</p>
+							<p>
+								Мотивация: Соединять разрозненные трассы — быть тем связующим звеном, которое превращает
+								изолированные участки в единую сеть.
+							</p>
+						</div>
+					</div>
+				</article>
+
+				<article id="patchmaker" class="character-tab-panel">
+					<div class="character-card">
+						<div class="character-icon">🔩</div>
+						<h2 class="character-name glitch-title">ПАТЧМЕЙКЕР</h2>
+						<div class="character-role">поддержка снаряжения</div>
+						<div class="character-content">
+							<p>
+								Техник, обслуживающий интерфейсы и выпускающий «горячие» обновления для оборудования
+								бегунов. Патчмейкер работает там, где остановка означает провал — все ремонты происходят
+								на ходу.
+							</p>
+							<p>
+								В мире, где скорость — это выживание, роль Патчмейкера критична: они поддерживают
+								оборудование в рабочем состоянии даже в экстремальных условиях.
+							</p>
+							<p>
+								Их философия проста: система не должна падать, темп не должен снижаться, а если что-то
+								ломается — это исправляется немедленно.
+							</p>
+							<p>
+								Мотивация: Сохранить темп любой ценой — обеспечить бесперебойную работу всех систем, не
+								допустить остановки потока.
+							</p>
+						</div>
+					</div>
+				</article>
+
+				<article id="surveillance" class="character-tab-panel">
+					<div class="character-card">
+						<div class="character-icon">👁️</div>
+						<h2 class="character-name glitch-title">СИСТЕМА НАБЛЮДЕНИЯ</h2>
+						<div class="character-role">надзор</div>
+						<div class="character-content">
+							<p>
+								Безличный контур мониторинга, следящий за стабильностью городской динамики и соблюдением
+								режимов. Система — это не персонаж в традиционном смысле, а распределенная сущность,
+								присутствующая везде и нигде одновременно.
+							</p>
+							<p>
+								Она не имеет эмоций, амбиций или личных целей. Существует только протокол: наблюдать,
+								анализировать, реагировать.
+							</p>
+							<p>
+								Когда движение становится слишком хаотичным, Система вмешивается — не из злого умысла, а
+								из запрограммированной необходимости поддерживать порядок.
+							</p>
+							<p>
+								Директива: Минимизация отклонений от заданного режима — поддержание стабильного
+								состояния системы через устранение хаотических элементов.
+							</p>
+						</div>
+					</div>
+				</article>
+			</div>
+		</div>
+	</section>
+
+	<!-- Футер -->
+	<footer>
+		<p>&copy; 2025 HyperLane. Все права защищены. Создано на движке Godot.</p>
+	</footer>
+
+	<script>
+		// Функциональность табов
+		document.addEventListener('DOMContentLoaded', function () {
+			const tabButtons = document.querySelectorAll('.char-tab-btn');
+			const tabPanels = document.querySelectorAll('.character-tab-panel');
+
+			tabButtons.forEach(button => {
+				button.addEventListener('click', function () {
+					const targetTab = this.getAttribute('data-tab');
+
+					// Удаляем активные классы
+					tabButtons.forEach(btn => btn.classList.remove('active'));
+					tabPanels.forEach(panel => panel.classList.remove('active'));
+
+					// Добавляем активные классы
+					this.classList.add('active');
+					document.getElementById(targetTab).classList.add('active');
+				});
+			});
+		});
+	</script>
+
+</body>
+
+</html>
