@@ -108,58 +108,118 @@ nav a:not(.logo):hover::after {
 }
 
 /* Альтернатива 2 - Цифровой дождь */
+.hero {
+  position: relative;
+  overflow: hidden;
+  background: var(--black);
+  z-index: 0;
+}
+
 .hero::before {
-	content: "";
-	position: absolute;
-	inset: -50%;
-	background:
-		linear-gradient(90deg,
-			transparent 0%,
-			rgba(139, 92, 246, 0.1) 50%,
-			transparent 100%);
-	background-size: 200% 100%;
-	animation: digitalStream 8s linear infinite;
-	z-index: 1;
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 300%;
+  height: 300%;
+  pointer-events: none;
+
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(139, 92, 246, 0.06) 0,
+    rgba(139, 92, 246, 0.06) 6px,
+    transparent 6px,
+    transparent 14px
+  );
+
+  mix-blend-mode: screen;
+
+  animation: crtScanlines 4s linear infinite;
+  z-index: 1;
 }
 
 .hero::after {
-	content: "";
-	position: absolute;
-	inset: -100%;
-	background-image:
-		repeating-linear-gradient(90deg,
-			transparent 0px,
-			transparent 2px,
-			rgba(0, 255, 252, 0.03) 2px,
-			rgba(0, 255, 252, 0.03) 4px),
-		repeating-linear-gradient(0deg,
-			transparent 0px,
-			transparent 2px,
-			rgba(252, 0, 255, 0.03) 2px,
-			rgba(252, 0, 255, 0.03) 4px);
-	animation: matrixRain 16s linear infinite;
-	z-index: 1;
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 300%;
+  height: 300%;
+
+  background: radial-gradient(circle at center,
+    rgba(139, 92, 246, 0.18),
+    rgba(239, 68, 68, 0.1) 40%,
+    rgba(0, 255, 252, 0.15) 70%,
+    transparent 85%
+  );
+
+  animation: crtGlow 6s ease-in-out infinite;
+  filter: contrast(1.3) brightness(1.1);
+  z-index: 0;
 }
 
-@keyframes digitalStream {
-	0% {
-		background-position: -200% 0;
-	}
+.hero .noise {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  background-image: url('data:image/svg+xml;utf8,<svg width="4" height="4" viewBox="0 0 4 4" xmlns="http://www.w3.org/2000/svg"><rect width="1" height="1" fill="white" opacity="0.07"/><rect x="2" y="2" width="1" height="1" fill="white" opacity="0.07"/></svg>');
+  mix-blend-mode: screen;
+  z-index: 2;
 
-	100% {
-		background-position: 200% 0;
-	}
+  animation: noiseShift 8s steps(2) infinite;
 }
 
-@keyframes matrixRain {
-	0% {
-		transform: translateY(-100%);
-	}
-
-	100% {
-		transform: translateY(100%);
-	}
+@keyframes crtScanlines {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 0 20px;
+  }
 }
+
+@keyframes crtGlow {
+  0%, 100% {
+    transform: scale(1) translate(0, 0);
+    filter: brightness(1.1);
+  }
+  50% {
+    transform: scale(1.05) translate(5px, 3px);
+    filter: brightness(1.3);
+  }
+}
+
+@keyframes noiseShift {
+  0%, 100% {
+    clip-path: inset(0 0 0 0);
+    transform: translate(0, 0) skew(0, 0);
+  }
+  10% {
+    clip-path: inset(10% 0 80% 0);
+    transform: translate(-12px, 4px) skew(-0.4deg, 0);
+  }
+  20% {
+    clip-path: inset(80% 0 10% 0);
+    transform: translate(10px, -6px) skew(0.4deg, 0);
+  }
+  30% {
+    clip-path: inset(0 0 30% 0);
+    transform: translate(-5px, 2px) skew(-0.2deg, 0);
+  }
+  40% {
+    clip-path: inset(60% 0 20% 0);
+    transform: translate(6px, -3px) skew(0.3deg, 0);
+  }
+  50% {
+    clip-path: inset(40% 0 40% 0);
+    transform: translate(0, 0) skew(0, 0);
+  }
+  60%, 100% {
+    clip-path: inset(0 0 0 0);
+    transform: translate(0, 0) skew(0, 0);
+  }
+}
+
 
 .hero-content {
 	position: relative;
@@ -766,4 +826,12 @@ footer p {
 	.hero::after {
 		animation-duration: 24s;
 	}
+}
+
+nav a.active {
+  color: var(--purple-light);
+}
+
+nav a.active::after {
+  width: 100%;
 }
