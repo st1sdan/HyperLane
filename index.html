@@ -1,132 +1,209 @@
 <!DOCTYPE html>
 <html lang="ru">
-
 <head>
-	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1" />
-	<title>HyperLane</title>
-	<meta name="description" content="Паркур в неоновых пространствах — HyperLane" />
-	<link rel="stylesheet" href="styles.css">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>HyperLane — Protocol</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
 </head>
-
 <body>
-	<!-- Навигация -->
-	<nav>
-		<a href="#" class="logo">
-			<span class="hyper">Hyper</span><strong class="lane">Lane</strong>
-		</a>
-		<div>
-			<a href="#video" class="active">Движение</a>
-			<a href="#about">Мир</a>
-			<a href="#team">Создатели</a>
-			<a href="characters.html">Персонажи</a>
-			<a href="history.html">История</a>
-		</div>
-	</nav>
 
-	<!-- Героическая секция -->
-	<section id="hero" class="hero">
-		<div class="hero-content">
-			<h1>
-			<span class="hyper">Hyper</span><span class="lane">Lane</span>
-			</h1>
+    <t-header></t-header>
 
-			<p class="tagline">Паркур • Экшен • Неон</p>
+    <!-- HERO -->
+    <section style="min-height: 90vh; display: flex; align-items: center; padding-top: 100px;">
+        <div style="width: 100%;">
+            <div class="mono" style="margin-bottom: 24px;">/// CONNECTION ESTABLISHED</div>
+            
+            <h1 class="glitch" data-text="HYPERLANE">
+                <span class="glitch-main">HYPERLANE</span>
+            </h1>
+            
+            <p style="margin-bottom: 50px; font-size: 1.25rem;">
+                Высокоскоростной паркур в неоновом вакууме. <br>
+                Никакой стрельбы. Только скорость, точность и рефлексы.
+            </p>
+            
+            <div style="display: flex; gap: 24px;">
+                <a href="#download" class="btn">СКАЧАТЬ ДЕМО</a>
+                <a href="#" class="btn" style="border-color: rgba(100, 71, 208, 0.2);">STEAM PAGE</a>
+            </div>
+        </div>
+    </section>
 
-			<div class="platform-buttons">
-			<a href="#download" class="platform-btn">
-				Скачать демо
-			</a>
-			</div>
-		</div>
-		<div class="noise"></div>
-	</section>
+    <!-- ABOUT / LORE -->
+    <section id="about" style="padding-top: 0;">
+        <div class="corner-box">
+            <!-- Исправлено: замена span на div для переноса строки -->
+            <div class="mono" style="margin-bottom: 8px;">/// ARCHIVE_DATA_01</div>
+            
+            <h2 class="glitch" data-text="СИМУЛЯЦИЯ" style="margin-top: 0; font-size: 2rem;">
+                <span class="glitch-main">СИМУЛЯЦИЯ</span>
+            </h2>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px;">
+                <p>
+                    Система "HyperLane" изначально создавалась для тренировки ИИ пилотов. 
+                    В коде возникла аномалия, превратившая среду в бесконечную полосу препятствий.
+                </p>
+                <p>
+                    Вы — оператор, пытающийся добраться до ядра системы.
+                    Гравитационные сбои и процедурная геометрия — ваши главные враги.
+                    Ошибка означает стирание.
+                </p>
+            </div>
+        </div>
+    </section>
 
 
-	<!-- Видеосекция -->
-	<section class="video-section" id="video">
-		<div class="video-container">
-			<h2 class="section-title glitch-title">Движение — это всё</h2>
-			<div class="video-wrapper">
-				<!-- Замените VIDEO_ID на свой идентификатор видео -->
-				<iframe src="https://www.youtube.com/embed/VIDEO_ID" title="HyperLane — официальный трейлер"
-					allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-					referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
-				</iframe>
-			</div>
-		</div>
-	</section>
+    <!-- MEDIA (NEW SECTION) -->
+    <section id="media">
+        <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 40px;">
+            <h2 class="glitch" data-text="VISUAL_LOGS">
+                <span class="glitch-main">VISUAL_LOGS</span>
+            </h2>
+            <span class="mono" style="">/// LIVE_FEED_CONN_04</span>
+        </div>
 
-	<!-- Информационная секция -->
-	<section class="info-section" id="about">
-		<div class="info-grid">
-			<div class="info-card">
-				<h3 class="glitch-card" data-text="Полоса без конца">Полоса без конца</h3>
-				<p>
-					HyperLane — это вертикальный вызов гравитации, где каждый прыжок — это риск, каждая стена — точка
-					опоры, а каждая секунда может стать последней. Преодолевайте препятствия на грани возможного в
-					неоновом пространстве без правил.
-				</p>
-				<p>
-					Скользите по вертикальным поверхностям, перелетайте через пропасти и доверяйте только рефлексам.
-					Здесь нет безопасных путей — только траектория, которую вы создаёте сами.
-				</p>
-			</div>
-			<div class="info-card">
-				<h3 class="glitch-card" data-text="Архитектура скорости">Архитектура скорости</h3>
-				<p>
-					Каждый уровень — минималистичная арена, спроектированная для чистого потока. Никаких отвлечений,
-					только вы и идеальная геометрия препятствий. Простота форм скрывает безжалостную сложность.
-				</p>
-				<p>
-					Создано на Godot — движке, который даёт свободу экспериментировать с физикой, скоростью и динамикой
-					без компромиссов.
-				</p>
-				<span class="tech-badge">GODOT ENGINE</span>
-			</div>
-		</div>
-	</section>
+        <!-- VIDEO FRAME -->
+        <div class="corner-box" style="padding: 5px; margin-bottom: 30px; border-color: var(--border);">
+            <div class="video-container">
+                <div class="rec-tag"><div class="rec-dot"></div> REC</div>
+                <!-- Замените VIDEO_ID на ваш -->
+                <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ?controls=0&modestbranding=1&rel=0" 
+                        title="HyperLane Gameplay" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen>
+                </iframe>
+            </div>
+        </div>
 
-	<!-- Секция команды -->
-	<section class="team-section" id="team">
-		<div class="team-container">
-			<h2 class="section-title glitch-title">Кто строит полосу</h2>
-			<div class="team-grid">
-				<div class="team-member">
-					<h3>Павленко Никита</h3>
-					<p class="role">ИНЖЕНЕР ДВИЖЕНИЯ</p>
-					<p>
-						Создаёт игровые механики, программирует физику паркура и всё, что превращает идеи в работающий
-						код. Отвечает за техническую реализацию движения и систем игры.
-					</p>
-					<div class="contact-links">
-						<a href="mailto:nikita@hyperlane.game">Почта</a>
-						<a href="https://t.me/stisdan" rel="noopener">Telegram</a>
-					</div>
-				</div>
-				<div class="team-member">
-					<h3>Жамбулатов Адиль</h3>
-					<p class="role">АРХИТЕКТОР ПРЕПЯТСТВИЙ</p>
-					<p>
-						Проектирует уровни, балансирует геймплей и создаёт те самые арены, по которым вы будете мчаться
-						на пределе возможностей. Архитектор вашего пути.
-					</p>
-					<div class="contact-links">
-						<a href="mailto:adil@hyperlane.game">Почта</a>
-						<a href="https://t.me/" rel="noopener">Telegram</a>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
+        <!-- SCREENSHOTS GRID -->
+        <div class="media-grid">
+            <div class="corner-box media-item">
+                <img src="https://placehold.co/600x400/111/333" alt="Gameplay Jump">
+                <div class="mono" style="margin-top: 8px; font-size: 0.7rem;">CAM_01: WALLRUN</div>
+            </div>
+            <div class="corner-box media-item">
+                <img src="https://placehold.co/600x400/000/444" alt="Neon City">
+                <div class="mono" style="margin-top: 8px; font-size: 0.7rem;">CAM_02: SECTOR_7</div>
+            </div>
+            <div class="corner-box media-item">
+                <img src="https://placehold.co/600x400/222/555" alt="Character">
+                <div class="mono" style="margin-top: 8px; font-size: 0.7rem;">CAM_03: OPERATOR</div>
+            </div>
+        </div>
+    </section>
 
-	<!-- Футер -->
-	<footer>
-		<p>&copy; 2025 HyperLane — Паркур без компромиссов</p>
-		<p style="margin-top: 12px;">Свяжитесь для сотрудничества и обратной связи</p>
-	</footer>
+    <!-- FEATURES -->
+    <section id="features">
+        <h2 class="glitch" data-text="SYSTEMS">
+            <span class="glitch-main">SYSTEMS</span>
+        </h2>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px;">
+            <div class="corner-box">
+                <span class="mono">01 /// ENGINE</span>
+                <h3 style="margin-top:10px;">GODOT 4</h3>
+                <p style="font-size: 0.9rem;">Кастомная физика перемещения. Полный контроль инерции без Input Lag.</p>
+            </div>
+            <div class="corner-box">
+                <span class="mono">02 /// VISUALS</span>
+                <h3 style="margin-top:10px;">NEON</h3>
+                <p style="font-size: 0.9rem;">Высококонтрастная графика для мгновенного считывания маршрута.</p>
+            </div>
+            <div class="corner-box">
+                <span class="mono">03 /// AUDIO</span>
+                <h3 style="margin-top:10px;">SYNTH</h3>
+                <p style="font-size: 0.9rem;">Адаптивный саундтрек, который ускоряется вместе с вашим темпом.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ROADMAP (2025-2026) -->
+    <section id="roadmap">
+        <h2 class="glitch" data-text="TIMELINE">
+            <span class="glitch-main">TIMELINE</span>
+        </h2>
+        <div class="roadmap-grid">
+            <div class="roadmap-item active">
+                <span class="roadmap-date" style="color: var(--accent)">Q4 2025</span>
+                <h3>ALPHA</h3>
+                <p style="font-size: 0.9rem; margin-top: 10px;">
+                    Закрытое тестирование. Первые 20 уровней и отладка физики.
+                </p>
+            </div>
+            <div class="roadmap-item">
+                <span class="roadmap-date">Q1 2026</span>
+                <h3>BETA</h3>
+                <p style="font-size: 0.9rem; margin-top: 10px;">
+                    Режим "Призрак" (Ghost Mode), глобальные лидерборды, Replay система.
+                </p>
+            </div>
+            <div class="roadmap-item">
+                <span class="roadmap-date">Q2 2026 (EARLY)</span>
+                <h3>STEAM FEST</h3>
+                <p style="font-size: 0.9rem; margin-top: 10px;">
+                    Публичная демо-версия. Участие в фестивале "Играм быть".
+                </p>
+            </div>
+            <div class="roadmap-item">
+                <span class="roadmap-date">Q2 2026 (LATE)</span>
+                <h3>RELEASE 1.0</h3>
+                <p style="font-size: 0.9rem; margin-top: 10px;">
+                    Полноценный релиз. Редактор уровней (Workshop).
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- TEAM -->
+    <section id="team">
+        <h2 class="glitch" data-text="OPERATORS">
+            <span class="glitch-main">OPERATORS</span>
+        </h2>
+        <div class="team-grid">
+            <div class="corner-box team-member">
+                <div class="avatar">N</div>
+                <div>
+                    <h3>NIKITA</h3>
+                    <span class="mono">CORE CODE</span>
+                    <p style="font-size: 0.9rem; margin-top: 10px;">Архитектура, физика, неткод.</p>
+                </div>
+            </div>
+            <div class="corner-box team-member">
+                <div class="avatar">A</div>
+                <div>
+                    <h3>ADIL</h3>
+                    <span class="mono">LEVEL DESIGN</span>
+                    <p style="font-size: 0.9rem; margin-top: 10px;">Визуальный стиль, построение маршрутов.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER / DOWNLOAD -->
+    <section id="download" style="margin-top: 80px; padding-bottom: 100px;">
+        <div class="corner-box" style="padding: 60px; text-align: center;">
+            <h2 class="glitch" data-text="JOIN_THE_RUN">
+                <span class="glitch-main">JOIN_THE_RUN</span>
+            </h2>
+            <p style="margin: 0 auto 40px auto; max-width: 500px;">
+                Получи доступ к актуальному билду и общайся с разработчиками напрямую.
+            </p>
+            
+            <div style="display: flex; justify-content: center; gap: 30px; flex-wrap: wrap;">
+                <a href="#" class="btn" style="min-width: 200px;">DOWNLOAD DEMO</a>
+                <a href="#" class="btn" style="min-width: 200px; color: #5865F2; border-color: rgba(88, 101, 242, 0.3);">
+                    DISCORD SERVER
+                </a>
+            </div>
+        </div>
+        
+        <div class="mono" style="text-align: center; margin-top: 40px; opacity: 0.5;">
+            HYPERLANE © 2025 // SECURE CONNECTION
+        </div>
+    </section>
+
 </body>
-<script src="script.js"></script>
-
-
 </html>
